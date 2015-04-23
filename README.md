@@ -74,4 +74,8 @@ Now, there are certainly some edge cases we didn't cover here. [So **check out t
     `afterFlush` is very useful for queuing up changes in Meteor and executing them all at once. This is exactly how I [queue up reactive updates](https://github.com/ccorcos/meteor-react-mixin/blob/master/src/utils.coffee#L127) to efficiently [update the state of a React component](https://github.com/ccorcos/meteor-react-mixin/blob/master/src/utils.coffee#L171) in [`ccorcos:react-meteor`](https://github.com/ccorcos/meteor-react-mixin).
 
 
-    
+# Bonus
+
+If you want to see some more intense stuff using Tracker, check out the [observable streams library](https://github.com/ccorcos/meteor-tracker-streams) I build using `ReactiveVar`s.
+
+

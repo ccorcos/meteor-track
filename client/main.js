@@ -1,15 +1,3 @@
-// How does Tracker work?
-
-// - it builds a graph of functional dependancies
-
-// How?
-
-// - Tracker.autorun keeps track that the current function is running. Then 
-//   reactive sources can register the currently running function as a dependancy.
-//   Its actually pretty simple.
-
-// Why don't I just show you?
-
 // Track keeps track of the current function that is running and when you call Track.autorun, 
 // it just creates a computation object.
 Track = {

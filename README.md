@@ -23,7 +23,7 @@ Tracker.prototype.autorun = function(func) {
 }
 ```
 
-The rest of the magic happens within the `ReactiveVar`. Whenever `.get` is called, we make note that the current function depends on this value so when the value changes with `.set`, we can re-run the dependany functions. `get` and `set` look something like this:
+The rest of the magic happens within the `ReactiveVar`. Whenever `.get` is called, we make note that the current function depends on this value so when the value changes with `.set`, we can re-run the dependant functions. `.get` and `.set` look something like this:
 
 ```js
 ReactiveVar.prototype.get = function() {
@@ -37,7 +37,7 @@ ReactiveVar.prototype.set = function(x) {
 }
 ```
 
-Now, there are certainly some edge cases we didn't cover here. [Check out the example](/client/main.js) for a functional implementation that more closely models how Tracker actually works. 
+Now, there are certainly some edge cases we didn't cover here. [So **check out the example**](/client/main.js) for a functional implementation that more closely models how Tracker actually works. 
 
 # What else is left?
 

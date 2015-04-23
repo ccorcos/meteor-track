@@ -43,7 +43,16 @@ Now, there are certainly some edge cases we didn't cover here. [So **check out t
 
 - The flush cycle!
 
-    When `.set` is called and the dependancies are re-run, the functions are actually queued up and run all at once when the thread is free, using a `setTimeout(..., 0)`.
+    When `.set` is called and the dependancies are re-run, the functions are actually queued up and run all at once when the thread is free, using a `setTimeout(..., 0)`. Using our example, if we have a function:
+
+    ```js
+    var f = function() {
+      a.set(1)
+      b.set(2)
+    }
+    ```
+
+    The autorun that calls `c.set` should only be re-run only once to prevent unnecessary work.
 
 - Some helpful callbacks like `onInvalidate` and `afterFlush`.
 
@@ -60,21 +69,9 @@ Now, there are certainly some edge cases we didn't cover here. [So **check out t
       }.bind(this))
     }
     ```
+    This is useful for declaratively doing cleanup in Meteor simply by calling a function in a reactive computation. I use this exact pattern to [stop cached subscriptions after some delay in `ccorcos:subs-cache`](https://github.com/ccorcos/meteor-subs-cache/blob/master/src/subsCache.coffee#L84).
 
-    I use this exact pattern to [stop cached subscriptions after some delay in `ccorcos:subs-cache`](https://github.com/ccorcos/meteor-subs-cache/blob/master/src/subsCache.coffee#L84).
-
-    `afterFlush` is very useful for queuing up changes in Meteor and executing them all at once. Using our example, if we have a function:
-
-    ```js
-    var f = function() {
-      a.set(1)
-      b.set(2)
-    }
-    ```
-
-    The autorun that calls `c.set` should only be re-run once to prevent unnecessary work re-rendering.
-
-    This is exactly how I [queue up reactive updates](https://github.com/ccorcos/meteor-react-mixin/blob/master/src/utils.coffee#L127) to efficiently [update the state of a React component](https://github.com/ccorcos/meteor-react-mixin/blob/master/src/utils.coffee#L171) in [`ccorcos:react-meteor`](https://github.com/ccorcos/meteor-react-mixin).
+    `afterFlush` is very useful for queuing up changes in Meteor and executing them all at once. This is exactly how I [queue up reactive updates](https://github.com/ccorcos/meteor-react-mixin/blob/master/src/utils.coffee#L127) to efficiently [update the state of a React component](https://github.com/ccorcos/meteor-react-mixin/blob/master/src/utils.coffee#L171) in [`ccorcos:react-meteor`](https://github.com/ccorcos/meteor-react-mixin).
 
 
     
